@@ -1,5 +1,5 @@
 <template>
-  <b-card class="col-md-7 col-xs-12 mt-2">
+  <div class="col-md-7 col-xs-12 mt-2">
     <Jumbo v-show="jsCode == null" />
     <b-card-body v-show="jsCode != null">
       <b-input-group prepend="	&#x1f517;">
@@ -14,7 +14,7 @@
       <hr/>
       <Printer :jscode="jsCode"  />
     </b-card-body>
-  </b-card>
+  </div>
 </template>
 
 <script>

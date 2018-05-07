@@ -1,25 +1,23 @@
 <template>
     <b-card>
         <b-card-header>{{this.items}} {{this.title}}</b-card-header>
-        <b-list-group>
-            <b-list-group-item v-for="podcast in podcasts.slice(0,this.items)" :key="podcast.id">
-                <b-img class="float-right mwp-100" thumbnail fluid :src="podcast.image" />
-                <b-link :href="constructShowLink(podcast.name)"><h5>{{ podcast.title }}</h5></b-link>
-                <p class="card-text">
-                    {{ podcast.description | trim }}
-                    <br />
-                    <small>Podcasts available: {{ podcast.items.length }}</small>                    
-                </p>
-                <b-button-group size="sm">
-                    <b-button :href="constructShowLink(podcast.name)" variant="info">Show</b-button>
-                    <b-button :href="podcast.link" variant="info">Origin</b-button>
-                    <b-button :href="constructLink(podcast.name)" variant="warning">Feed</b-button>
-                    <b-button variant="danger" @click="radioAdd(podcast)"><strong>+ Your radio</strong></b-button>
-                </b-button-group>
-                <b-badge pill variant="secondary" class="float-right mt-2 clear">{{podcast.host}}</b-badge>
+        <b-list-group-item v-for="podcast in podcasts.slice(0,this.items)" :key="podcast.id">
+            <b-img class="float-right mwp-100" thumbnail fluid :src="podcast.image" />
+            <b-link :href="constructShowLink(podcast.name)"><h5>{{ podcast.title }}</h5></b-link>
+            <p class="card-text">
+                {{ podcast.description | trim }}
+                <br />
+                <small>Podcasts available: {{ podcast.items.length }}</small>                    
+            </p>
+            <b-button-group size="sm">
+                <b-button :href="constructShowLink(podcast.name)" variant="info">Show</b-button>
+                <b-button :href="podcast.link" variant="info">Origin</b-button>
+                <b-button :href="constructLink(podcast.name)" variant="warning">Feed</b-button>
+                <b-button variant="danger" @click="radioAdd(podcast)"><strong>+ Radio</strong></b-button>
+            </b-button-group>
+            <b-badge pill variant="secondary" class="float-right mt-2 clear">{{podcast.host}}</b-badge>
 
-            </b-list-group-item>
-        </b-list-group>
+        </b-list-group-item>
         <b-modal ref="radio" centered title="Your Radio" ok-title="Create" ok-variant="info" @ok="radioAdded" cancel-variant="light" :ok-disabled="newRadio.podcasts.length == 0">
             <b-alert show variant="success" dismissible>
                 <!-- <h4 class="alert-heading">Now this is just great!</h4> -->

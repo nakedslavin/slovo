@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <b-card-group>
+    <b-card-group class="mt-3">
       <CreateFeed @feedUpdated="feedUpdated" />
       <Panel :code="jsonData"  />
     </b-card-group>
@@ -41,3 +41,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>

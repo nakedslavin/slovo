@@ -1,11 +1,11 @@
 <template>
-  <b-card class="col-md-5 col-xs-12 mt-2 mr-2">
-    <b-card-header>Create a podcast</b-card-header>
-    <b-card-body>
+  <b-card class="col-md-5 col-xs-12 mt-2">
+    <b-card-header class="p-0 py-2">Create a podcast</b-card-header>
+    <div>
       <b-alert variant="danger" :show="errors.length != 0">
-        <ul><li v-for="err in errors" :key="err">{{err}}</li></ul>
+        <ul class="mb-0"><li v-for="err in errors" :key="err">{{err}}</li></ul>
       </b-alert>
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="mt-3">
         <b-form-group label="Address Url:"
                       description="
                       Examples:<br/>
@@ -44,7 +44,7 @@
         <b-alert variant="danger" dismissible :show="is_error">There was an error while processing your request</b-alert>
         <b-button :disabled="in_process" type="submit" variant="info">Create</b-button>
       </b-form>
-    </b-card-body>
+    </div>
   </b-card>
 </template>
 
