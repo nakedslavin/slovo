@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     fetchPodcast() {
-        this.$http.get(this.$apiHost + 'show/' + this.$route.params.id).then(res => this.podcast = res.body)
+        this.$http.get(this.$apiHost + 's/' + this.$route.params.id).then(res => this.podcast = res.body)
     },
     constructLink(value) {
         return this.$apiHost + 'l/' + value 

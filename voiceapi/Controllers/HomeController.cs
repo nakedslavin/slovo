@@ -15,12 +15,23 @@ using voiceapi.Models;
 using voiceapi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace voiceapi.Controllers
 {
     //[EnableCors("AllowAll")]
     public class HomeController : Controller
     {
+        public IHostingEnvironment HostingEnv { get; }
+        public HomeController(IHostingEnvironment env)
+        {
+            HostingEnv = env;
+        }
+        [HttpGet]
+        public IActionResult All() {
+            return new PhysicalFileResult(Path.Combine(HostingEnv.WebRootPath,"index.html"), "text/html");
+        }
         public IActionResult Index()
         {
             return Json(new string[] {"GET"});

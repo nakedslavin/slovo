@@ -47,19 +47,13 @@ namespace voiceapi
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCors("AllowAll");
+            
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "link",
                     template: "link/{id?}", 
                     defaults: new { controller = "Home", action = "Link" });
-                routes.MapRoute(
-                    name: "show",
-                    template: "show/{id?}",
-                    defaults: new { controller = "Home", action = "Show" });
                 routes.MapRoute(
                     name: "shortshowlink",
                     template: "s/{id?}",
@@ -72,6 +66,14 @@ namespace voiceapi
                     name: "audioredirect",
                     template: "a/{fileName}.{fileExtensionWithoutDot}", 
                     defaults: new { controller = "Home", action = "Audio" });
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "all",
+                    template: "{*url}",
+                    defaults: new { controller = "Home", action = "All" });
+    
             });
         }
     }

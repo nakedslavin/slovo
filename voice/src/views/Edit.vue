@@ -132,7 +132,7 @@ export default {
   },
   methods: {
     fetchPodcast() {
-        this.$http.get(this.$apiHost + 'show/' + this.$route.params.id).then(res => {
+        this.$http.get(this.$apiHost + 's/' + this.$route.params.id).then(res => {
            this.podcast = res.body
            this.originalName = this.podcast.name
           })
