@@ -3,12 +3,13 @@
         <aplayer 
             :music="{
                 title: item.title,
-                artist: item.keywords.slice(5).join(','),
+                artist: item.guestName + ' ' + item.pubDate,
                 src: item.encloseUrl,
                 pic: item.image
             }"/>
-        <h5>{{item.title}}</h5>
+        <h5 class="pt-3">{{item.title}}</h5>
         <p class="small">{{item.description}}</p>
+        <b-badge v-for="tag in item.keywords" :key="tag" class="mr-1">{{tag}}</b-badge>
     </div>
 </template>
 <script>

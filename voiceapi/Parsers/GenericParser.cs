@@ -146,9 +146,11 @@ namespace voiceapi.Services {
                     }
                     if (ikeywords == null)
                         item.Keywords = new List<string>();
-                    else
+                    else {
                         item.Keywords = ikeywords.Split(',').Select(k => k.ToLower().Trim()).ToList();
-
+                        item.Keywords = item.Keywords.Where(k => k != null).ToList();
+                    }
+                    
                     item.Image = (string)recipe["map"]["image"];
                     if (item.Image != null && item.Image.StartsWith("$")) {
                         item.Image = item.Image.Substring(1);

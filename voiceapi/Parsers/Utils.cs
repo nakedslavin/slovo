@@ -68,6 +68,12 @@ namespace voiceapi.Services {
             return (null,null);
         }
         public static string YTUrlParser(string ytLink) {
+            // https://youtu.be/Gi-H7C2oHdA
+            if (yt.Contains("youtu.be")) {
+                var id = ytLink.Split('/').Last().Trim();
+                ytLink = "https://www.youtube.com/watch?v=" + id;
+            }
+            
             //https://www.youtube.com/channel/UCgxTPTFbIbCWfTR9I2-5SeQ
             //https://www.youtube.com/user/NavalnyRu
             //https://www.youtube.com/watch?v=cHqtLrpRQ3Y&
