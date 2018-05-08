@@ -14,6 +14,13 @@
             <b-btn variant="info" :href="constructEditLink(podcast.name)">Edit</b-btn>
             <b-btn variant="warning" :href="constructLink(podcast.name)">Feed</b-btn>
           </b-btn-group>
+          
+          <hr />
+
+          <vue-goodshare class="outline"></vue-goodshare>
+          <vue-goodshare class="outline" bundle="ru"></vue-goodshare>
+          <vue-goodshare class="outline" bundle="mobile"></vue-goodshare>
+
           <hr />
           <b-card-body>
             <b-list-group>
@@ -40,6 +47,8 @@
 <script>
 import ShowLine from '@/components/ShowLine.vue'
 import ShowItem from '@/components/ShowItem.vue'
+import VueGoodshare from 'vue-goodshare'
+
 export default {
   name: 'show',
   data () {
@@ -49,7 +58,7 @@ export default {
   },
   props: ['auth', 'authenticated'],
   components: {
-    ShowLine, ShowItem
+    ShowLine, ShowItem, VueGoodshare
   },
   watch: {
     '$route': function() {
@@ -72,3 +81,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .outline {
+    color: white;
+  }
+</style>
