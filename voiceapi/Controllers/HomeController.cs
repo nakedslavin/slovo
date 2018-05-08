@@ -52,7 +52,11 @@ namespace voiceapi.Controllers
                 if (storedCasts.Count != 0)
                     podcast = storedCasts.First();
                 else {
-                    podcast = Parsers.GetParser(uri.Host).Parse(address);
+                    string host = uri.Host;
+                    if (uri.Host == "youtu.be" || uri.Host == "youtube.com")
+                        host = "www.youtube.com";
+
+                    podcast = Parsers.GetParser(host).Parse(address);
                     podcast.Category = category;
                     podcast.Name = CleanName(name);
                     
@@ -141,6 +145,7 @@ namespace voiceapi.Controllers
                 return Redirect(url.RealUrl);
             }
         }
+        //l
         public IActionResult Link(string id) {
             if (!string.IsNullOrWhiteSpace(id)) {
                 var session = new MongoSession<Podcast>();
@@ -152,6 +157,18 @@ namespace voiceapi.Controllers
             }
             return new StatusCodeResult(200);
         }
+        // s
+        public IActionResult Show(string id) {
+            if (!string.IsNullOrWhiteSpace(id)) {
+                var session = new MongoSession<Podcast>();
+                var podcast = session.Get(p => p.Name == id.ToLower().Trim()).FirstOrDefault();
+                if (podcast == null) return new StatusCodeResult(404);
+                podcast = UpdatePodcastItems(podcast,session);
+                return Json(podcast);
+            }
+            return new StatusCodeResult(200);
+        }
+        
         private Podcast UpdatePodcastItems(Podcast podcast, MongoSession<Podcast> session) {
             
             if (DateTime.UtcNow.Subtract(podcast.BuildTimestamp).TotalMinutes > 30) {
@@ -164,7 +181,8 @@ namespace voiceapi.Controllers
                         var p = UpdatePodcastItems(pod, session);
                         podcasts.Add(p);
                     }
-                    items = podcasts.SelectMany(p => p.Items).OrderByDescending(p => p.PubDate).ToList();     
+                    // HACK
+                    items = podcasts.SelectMany(p => p.Items).OrderByDescending(p => Utils.ConvertFromPubDate(p.PubDate)).ToList();     
                 }
                 else
                     items = Parsers.GetParser(podcast.Host).Parse(podcast.Link).Items;
@@ -182,17 +200,19 @@ namespace voiceapi.Controllers
             name = string.Concat(name.Take(10));
             return name;
         }
-        public IActionResult Show(string id) {
+        public IActionResult List(string filter, string sort = "{_id : 1 }") {
+            var podcasts = new List<Podcast>();
             var session = new MongoSession<Podcast>();
-            var podcast = session.Get(_ => _.Name == id).FirstOrDefault();
-            return Json(podcast);
-        }
-        
-        public IActionResult List() {
-            var session = new MongoSession<Podcast>();
-            var podcasts = session.Get(_ => true)
-                .OrderByDescending(_ => _.BuildTimestamp)
-                .ToList();
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                podcasts = session.Get(filter, sort);
+            }
+            else
+            {
+                podcasts = session.Get(_ => true)
+                    .OrderByDescending(_ => _.BuildTimestamp)
+                    .ToList();
+            }
             return Json(podcasts);
         }
         public IActionResult Send() {

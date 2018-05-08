@@ -12,7 +12,7 @@
           <b-btn-group size="sm">
             <b-btn variant="white" :href="construnctShowLink(podcast.name)">Back</b-btn>
             <b-btn variant="success" @click="save">Save</b-btn>
-            <b-btn variant="danger" @click="del" v-if="podcast.humanId == auth.userProfile.email">Delete</b-btn>
+            <b-btn variant="danger" @click="del" v-if="podcast.humanId == auth.userProfile.email && podcast.humanId != null">Delete</b-btn>
             <b-btn variant="warning" :href="constructLink(podcast.name)">Feed</b-btn>
           </b-btn-group>
           <hr />
@@ -92,10 +92,10 @@
     <b-row class="w-100 m-2"></b-row>
     <b-row>
       <b-col xs="6">
-        <ShowLine items="6" title="Last Added" :auth="auth" :authenticated="authenticated"/>
+        <ShowLine itemsCount="6" title="Last Added" :auth="auth" :authenticated="authenticated"/>
       </b-col>
       <b-col xs="6">
-        <ShowLine items="6" title="Most Popular" :auth="auth" :authenticated="authenticated" />
+        <ShowLine itemsCount="6" title="Most Popular" :auth="auth" :authenticated="authenticated" />
       </b-col>
     </b-row>
   </div>

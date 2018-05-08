@@ -28,10 +28,10 @@
     <b-row class="w-100 m-2"></b-row>
     <b-row>
       <b-col xs="6">
-        <ShowLine items="6" title="Last Added" :auth="auth" :authenticated="authenticated"/>
+        <ShowLine itemsCount="6" title="Last Added" :auth="auth" :authenticated="authenticated"/>
       </b-col>
       <b-col xs="6">
-        <ShowLine items="6" title="Most Popular" :auth="auth" :authenticated="authenticated" />
+        <ShowLine itemsCount="6" title="Most Popular" :auth="auth" :authenticated="authenticated" />
       </b-col>
     </b-row>
   </div>

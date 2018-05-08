@@ -7,10 +7,11 @@
     <hr/>
     <b-row>
       <b-col xs="6">
-        <ShowLine items="6" title="Last Added"  :auth="auth" :authenticated="authenticated" />
+        <ShowLine itemsCount="6" title="Last Added" filter="{}" sort="{CreationTimestamp: -1}"  :auth="auth" :authenticated="authenticated" />
       </b-col>
       <b-col xs="6">
-        <ShowLine items="6" title="Most Popular" :auth="auth" :authenticated="authenticated" />
+        <ShowLine v-if="authenticated" itemsCount="6" title="My Radios and Podcasts"  :filter="getQuery()" sort="{BuildTimestamp: -1}" :auth="auth" :authenticated="authenticated" />
+        <ShowLine v-if="!authenticated" itemsCount="6" title="Last Updated"  filter="{}" sort="{BuildTimestamp: -1}" :auth="auth" :authenticated="authenticated" />
       </b-col>
     </b-row>
   </div>
@@ -21,6 +22,7 @@
 import CreateFeed from '@/components/CreateFeed.vue'
 import Panel from '@/components/Panel.vue'
 import ShowLine from '@/components/ShowLine.vue'
+
 export default {
   name: 'home',
   data () {
@@ -37,6 +39,9 @@ export default {
   methods: {
     feedUpdated(value) {
       this.jsonData = value;
+    },
+    getQuery() {
+      return { HumanId: this.auth.userProfile.email }
     }
   }
 }

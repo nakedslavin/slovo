@@ -69,7 +69,7 @@ namespace voiceapi.Services {
         }
         public static string YTUrlParser(string ytLink) {
             // https://youtu.be/Gi-H7C2oHdA
-            if (yt.Contains("youtu.be")) {
+            if (ytLink.Contains("youtu.be")) {
                 var id = ytLink.Split('/').Last().Trim();
                 ytLink = "https://www.youtube.com/watch?v=" + id;
             }
@@ -143,6 +143,11 @@ namespace voiceapi.Services {
         public static string ConvertToPubDate(DateTime dt)
         {
             return dt.ToString("ddd',' d MMM yyyy HH':'mm':'ss") + " " + dt.ToString("zzzz").Replace(":", "");
+        }
+        public static DateTime ConvertFromPubDate(string pubDate)
+        {
+            DateTime.TryParse(pubDate, out DateTime date);
+            return date;
         }
 
     }

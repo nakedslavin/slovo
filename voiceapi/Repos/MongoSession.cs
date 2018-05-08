@@ -39,6 +39,11 @@ namespace ITB.Business.Repos
         {
             return collection.Find<T>(predicate).ToList();
         }
+        public List<T> Get(string filter, string sort) {
+            var items = collection.Find<T>(filter)
+                .Sort(sort);
+            return items.ToList();
+        }
 
         /// <summary>
         /// Saves data to the database

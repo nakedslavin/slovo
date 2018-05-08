@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import router from './../router'
+
 export default {
   data () {
     return {
@@ -92,6 +94,7 @@ export default {
                   self.in_process = false;
                   self.is_error = res.body === null;
                   if (!self.is_error) {
+                    router.replace('/edit/' + res.body.name)
                     self.$emit('feedUpdated', res.body);
                   }
                 },

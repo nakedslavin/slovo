@@ -1,7 +1,7 @@
 <template>
     <b-card>
-        <b-card-header>{{this.items}} {{this.title}}</b-card-header>
-        <b-list-group-item v-for="podcast in podcasts.slice(0,this.items)" :key="podcast.id">
+        <b-card-header>{{this.itemsCount}} {{this.title}}</b-card-header>
+        <b-list-group-item v-for="podcast in podcasts.slice(0,this.itemsCount)" :key="podcast.id">
             <b-img class="float-right mwp-100" thumbnail fluid :src="podcast.image" />
             <b-link :href="constructShowLink(podcast.name)"><h5>{{ podcast.title }}</h5></b-link>
             <p class="card-text">
@@ -77,9 +77,14 @@ export default {
             }
         }
     },
-    props: ['items','title', 'auth', 'authenticated'],
+    props: ['itemsCount','title', 'filter', 'sort', 'auth', 'authenticated'],
     created() {
-        this.$http.get(this.$apiHost + 'home/list').then(
+        var cmd = this.$apiHost + 'home/list'
+        var params = {}
+        if (this.filter) {
+            params = {params: {filter: this.filter, sort: this.sort }}
+        }
+        this.$http.get(cmd,params).then(
             res => {
                 this.podcasts = res.body.sort(function(a,b){
                     return new Date(b.pubDate) - new Date(a.pubDate);
