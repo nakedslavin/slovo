@@ -97,8 +97,10 @@ export default {
             }
         },
         radioAdded(evt) {
-            this.errors = []
             evt.preventDefault()
+            this.errors = []
+            this.newRadio.name = this.newRadio.name == null ? null : this.newRadio.name.toLowerCase()
+
             this.newRadio.humanid = this.auth.userProfile.email
             this.newRadio.humanname = this.auth.userProfile.nickname
             this.newRadio.humanfullname = this.auth.userProfile.name

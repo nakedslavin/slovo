@@ -70,8 +70,11 @@ export default {
   },
   methods: {
     onSubmit (evt) {
-      this.errors = [];
       evt.preventDefault();
+      
+      this.errors = [];
+      this.form.name = this.form.name == null ? null : this.form.name.toLowerCase()
+      
       if (!this.form.address || !this.validLink(this.form.address))
         this.errors.push("Please provide a link");
       if (!this.form.category)

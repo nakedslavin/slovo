@@ -142,7 +142,7 @@ namespace voiceapi.Services {
                         ikeywords = ikeywords.Substring(1);
                         string cmd =ikeywords.Split('|').ElementAtOrDefault(0);
                         string attr = ikeywords.Split('|').ElementAtOrDefault(1);
-                        ikeywords = attr == null ? cq[cmd].Text() : cq[cmd].Attr(attr);
+                        ikeywords = attr == null ? el.Cq().Find(cmd).Text() : el.Cq().Find(cmd).Attr(attr);
                     }
                     if (ikeywords == null)
                         item.Keywords = new List<string>();
